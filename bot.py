@@ -1,7 +1,9 @@
 import discord
+import yaml
+import pandas
 
-
-token = "NTIzNjg1MjE1MzM2NTI5OTQy.DveNwA.bJNeBrI9PgTIaMbOxvBfFssqLLQ"
+secret = yaml.load(open("secret.yaml").read())
+token = secret["token"]
 client = discord.Client()
 
 @client.event
@@ -13,12 +15,16 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith("/csgo"):
         if client.user != message.author:
-            await
+            print(message.content) 
+            print(message.content.split("\n"))
+            #dispatch(message.context, status)
             await client.send_message(message.channel, "同志")
     if "資本主義" in message.content:
         if client.user != message.author:
             await client.send_message(message.channel, "殺すぞ")
 
-ddfvcef dispatch():
+# def dispatch(message, status):
+#    meessage
+
 
 client.run(token)
