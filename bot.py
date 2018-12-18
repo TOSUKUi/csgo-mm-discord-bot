@@ -41,22 +41,28 @@ def dispatch(message, state):
         return __help(state)
 
 def merge_dict(x, y):
-
     return {**x, **y}
 
 def add(body, state):
-    next_state = state.append(body, ignore_index=True)
+    next_state = state.append(body, ignore_index=True) if body["author"] not in state["author"].values else state
     view = discord.Embed(title="CSGO MM BOT add")
     for index, val in next_state.iterrows():
         view.add_field(name=val["author"].name, value=list(val))
     return next_state, view
 
 def delete(body, state):
-    state[state[""]]
-    return state, discord.Embed(title="delete")
+    next_state = state[state["author"] != body] 
+    view = discord.Embed(title="CSGO MM BOT add")
+    for index, val in next_state.iterrows():
+        view.add_field(name=val["author"].name, value=list(val))
+    return next_state, view
     
 def show(state):
-    return state, discord.Embed(title="list")
+    next_state = state
+    view = discord.Embed(title="CSGO MM BOT add")
+    for index, val in next_state.iterrows():
+        view.add_field(name=val["author"].name, value=list(val))
+    return next_state, discord.Embed(title="list")
     
 def __help(state):
     return state, discord.Embed(title="help")
